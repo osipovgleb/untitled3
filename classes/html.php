@@ -1,9 +1,9 @@
+<?php
 /*05.06.2016 Osipov Gleb
  *classes to optimize the program
  *including of the blocks*/
-
-<?php
-define("TYPE_TEMPLATE", 1);
+define("TYPE_TEMPLATE", 0);
+define('TYPE_META', 1);
 
 class HTML{
     /*string: name of the site*/
@@ -12,6 +12,8 @@ class HTML{
     static $templates = [];
     /*string: name of the directory that contains blocks*/
     static $templates_dir = "templates/";
+    /*array: for includes of css*/
+    static $css = [];
 
     /*function: input name of the file with start block to array*/
     static public function header($title = ""){
@@ -19,26 +21,36 @@ class HTML{
             $title = HTML::$sitename;
         else
             $title = HTML::$sitename."-".$title;
-        HTML::$templates = array("header", array($title));
+        HTML::template("header", array($title));
     }
 
     /*function: input name of the file with end block to array*/
     static public function footer(){
-        HTML::$templates = array("footer");
+        HTML::template("footer");
     }
 
-    /*static public function template($name, $args = array()){
-       HTML::$templates = array($name, $args, TYPE_TEMPLATE);
-    }*/
+    static public function template($name, $args = array())
+    {
+       if (file_exists(HTML::$templates_dir . $name . ".meta.php"))
+            HTML::$templates[] = array($name . ".meta", array(), TYPE_META);
+        HTML::$templates[] = array($name, $args, TYPE_TEMPLATE);
+    }
 
     /*function: includes all files from array*/
-    static public function flush(){
-        foreach (HTML::$templates as $t){
-          list($name, $args, $type) = $t;
-            include(HTML::$templates_dir.$name.".php");
+    static public function flush()
+    {
+        foreach (HTML::$templates as $t) {
+            list($name, $args, $type) = $t;
+            if ($type != TYPE_META)
+                continue;
+            include(HTML::$templates_dir . $name . ".php");
         }
-      //  HTML::$templates = array(&name, $args(), TYPE_TEMPLATE);
+        foreach (HTML::$templates as $t) {
+            list($name, $args, $type) = $t;
+            if ($type == TYPE_META)
+                continue;
+            include(HTML::$templates_dir . $name . ".php");
+        }
     }
-}
-?>
 
+}?>
