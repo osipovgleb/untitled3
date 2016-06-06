@@ -8,4 +8,3 @@ $title = $args[0];
 </head>
 
 <body>
-<p>hi world</p>
