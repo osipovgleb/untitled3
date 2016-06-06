@@ -1,2 +1,5 @@
+/*05.06.2016 Osipov Gleb
+*the end block of the program*/
+
 </body>
 </html>
