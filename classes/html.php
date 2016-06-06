@@ -52,5 +52,5 @@ class HTML{
             include(HTML::$templates_dir . $name . ".php");
         }
     }
-
 }?>
+
