@@ -13,3 +13,4 @@ function get_or_post($name, $default = NULL){
         return $_POST[$name];
     return $default;
 }
+
