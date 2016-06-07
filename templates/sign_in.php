@@ -7,6 +7,7 @@
 
 include("classes/helpers.php");
 include("classes/session.php");
+include("classes/user.php");
 $login = get_or_post("login");
 $password = get_or_post("password");
 ?>
@@ -21,10 +22,15 @@ $password = get_or_post("password");
 
 
 <?php
-if (/*Session::$data[$login] == $password*/  $password == $login)
-    echo "<p><a href=\"index.php\">перейти к таблице</a>.</p>";
-else
-    echo "<p><a href=\"sign_in.php\">не правильно, попробуйте еще раз</a>.</p>";
+$is_exist = User::is_exists($login, $password) ; 
+if ($is_exist == 0)
+    echo "<p> Не существует такого пользователя,<a href=\"sign_up.php\">зарегестрируйтесь</a>.</p>";
+elseif ($is_exist == -1)
+    echo "<p> Не правильный пароль, попробуйте <a href=\"sign_in.php\">еще раз</a>.</p>";
+else {
+//    set_to_session
+    echo "<p>Перейти<a href=\"index.php\">к таблице</a>.</p>";
+}
 ?>
 
 

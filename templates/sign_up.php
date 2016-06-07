@@ -23,10 +23,10 @@ $password2 = get_or_post("password");
 
 
 <?php
-if (/*Session::$data[$login] == $password*/  $password1 == $password2)
-    echo "<p><a href=\"index.php\">перейти к таблице</a>.</p>";
+if (/*Session::$data[$login] == $password*/  $password1 != $password2)
+    echo "<p><a href=\"index.php\">Перейти</a> к таблице.</p>";
 else
-    echo "<p><a href=\"sign_up.php\">пароли различются, попробуйте еще раз</a>.</p>";
+    echo "<p>Пароли различются, <a href=\"sign_up.php\">попробуйте еще раз</a>.</p>";
 ?>
 
 
