@@ -6,6 +6,9 @@
  * Time: 15:09
  */ 
 include("classes/html.php");
+include("classes/session.php");
+
+
 HTML::header("sign_up");
 HTML::template("sign_up");
 HTML::footer();
