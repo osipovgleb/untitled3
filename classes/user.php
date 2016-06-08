@@ -5,36 +5,56 @@
  * Date: 06.06.16
  * Time: 14:38
  */
-class User
-{
-    static $authorized = false;
+require_once("session.php");
+require_once ("db.php");
+class User {
+    private $authenticated;
+    private $profile;
+    static $session_key = "user_info";
+    function __construct() {
+        $this->get_from_session();
+    }
+    function __destruct() {
+        $this->set_session();
+    }
+    function get_from_session() {
+        if (!Session::$session_started) {
+            $this->fill_unauth();
+            return false;
+        }
+        if (($sess_data = Session::get(User::$session_key)) === null) {
+            $this->fill_unauth();
+            return false;
+        }
+        $this->authenticated = $sess_data['authenticated'];
+        $this->profile = $sess_data['profile'];
+        return $this->authenticated;
+    }
+    function set_session() {
+        Session::set(User::$session_key,
+            array(
+                'authenticated' => $this->authenticated,
+                'profile' => $this->profile
+            ));
+    }
+    function fill_unauth() {
+        $this->authenticated = false;
+        $this->profile = array();
+    }
+    function authorize($login, $password) {
+        global $db;
 
-    static public function set_to_session()
-    {
-        Session::set("user", array('authorized' => User::$authorized));
+        if (($this->profile = $db->check_auth($login, $password)) === null)
+            $this->fill_unauth();
+        else
+            $this->authenticated = true;
+        $this->set_session();
     }
 
-    function is_exists($login, $password){
-        $str =  unserialize(file_get_contents(__DIR__."../logins.txt"));
-        count();
-        while();
-        sscanf();
+    function is_auth() {
+        return $this->authenticated;
     }
-
-  /*  static public function get_from_session()
-    {
-        $data = Session::get("user");
-        list(User::$authorized) = $data;
-    }
-
- /*   static public check_auth()
-    {
-
-    }*/
-   /* static public function set_to_session()
-    {
-      Session::set("user", array('authorized' => User::$authorized));
-    }*/
 }
-?>
+$user = new User();
 
+?>

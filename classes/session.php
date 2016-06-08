@@ -9,13 +9,15 @@
 class Session
 {
     static $cookie_name = "SPR2016";
-    static $session_dir = "/../sessions/";
+    static $session_dir = "../sessions/";
     static $data = array();
     static $session_started = false;
     static $uid = "";
-    
+    static $auth = false;
+        
     static public function start_session()
     {
+        Session::$session_started = true;
         if (isset($_COOKIE[Session::$cookie_name]))
             Session::restore_session();
         else
@@ -27,17 +29,24 @@ class Session
     
     static public function store_session()
     {
-        if (file_put_contents(__DIR__.Session::$session_dir.Session::$uid.".txt", serialize(Session::$data)) === false)
+        if (!Session::$session_started)
+            return;
+
+        if (file_put_contents(Session::$session_dir.Session::$uid, serialize(Session::$data)) === false)
             die("Couldn't save session data.");
+
     }
     
     static private function restore_session()
     {
-        Session::$data = unserialize(file_get_contents(__DIR__.Session::$session_dir.Session::$uid.".txt"));
+        Session::$uid = $_COOKIE[Session::$cookie_name];
+        Session::$data = unserialize(file_get_contents(Session::$session_dir.Session::$uid));
 	}
     
     static public function set($name, $value)
     {
+        if (Session::$session_started === false)
+            return;
         Session::$data[$name] = $value;
     }
     
@@ -47,10 +56,7 @@ class Session
             return null;
         return Session::$data[$name];
     }
-
-    static public function finish_session()
-    {
-       unlink(__DIR__.Session::$session_dir.Session::$uid);
-    }
 }
+
+Session::start_session();
 ?>
