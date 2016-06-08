@@ -5,8 +5,9 @@
  * Date: 06.06.16
  * Time: 14:15*/
 
-include("classes/helpers.php");
-include("classes/session.php");
+include("../classes/helpers.php");
+require_once("../classes/user.php");
+
 $login = get_or_post("login");
 $password1 = get_or_post("password");
 $password2 = get_or_post("password");
@@ -15,16 +16,17 @@ $password2 = get_or_post("password");
 <p>Введите логин и пароль</p>
 <form action='' method='GET'>
     <p><input type="text" value="<?php echo $login; ?>" name="login"></p>
-    <p><input type="text" value="<?php echo $password1; ?>" name="password"></p>
-    <p><input type="text" value="<?php echo $password2; ?>" name="password"></p>
+    <p><input type="password" value="<?php echo $password1; ?>" name="password"></p>
+    <p><input type="password" value="<?php echo $password2; ?>" name="password"></p>
     <p><input type="submit" value="зарегестрироваться"></p>
 </form>
 <p>Вернуться к  <a href="sign_in.php">входу</a></p>
 
 
 <?php
-if (/*Session::$data[$login] == $password*/  $password1 != $password2)
-    echo "<p><a href=\"index.php\">Перейти</a> к таблице.</p>";
+if ($password1 == $password2){
+    echo "<p><a href=\"../index.php\">Перейти</a> к таблице.</p>";
+}
 else
     echo "<p>Пароли различются, <a href=\"sign_up.php\">попробуйте еще раз</a>.</p>";
 ?>
