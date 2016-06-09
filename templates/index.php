@@ -14,10 +14,10 @@ else
 {
     echo "<h1 > Таблица умножения </h1 >";
     echo "<p > Введите числа </p >";
-    echo "<form ><p ><input type = \"text\" value = \"$x\" name = \"x\">";
-    echo "<input type = \"text\" value = \"$y\" name = \"y\">";
-    echo "<input type = \"submit\" value = \"Считать\" ></p>";
-    echo " </form >";
+    echo "<form ><p><input type = \"text\" value = \"$x\" name = \"x\"></p>";
+    echo "<p><input type = \"text\" value = \"$y\" name = \"y\"></p>";
+    echo "<p><input type = \"submit\" value = \"Считать\" ></p>";
+    echo "</form >";
     
     echo "<table>";
     for ($j = 1; $j <= $y; $j++) {
