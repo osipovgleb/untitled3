@@ -7,19 +7,21 @@
  */ 
 include("classes/html.php");
 include("classes/user.php");
+include("classes/helpers.php");
 
+$login = get_or_post("login");
+$password = get_or_post("password");
 $user->authorize($login, $password);
-if (!$user->is_auth())
-    echo "<p> Не существует такого пользователя или,<a href=\"sign_up.php\">зарегестрируйтесь</a>.</p>";
-else
-    echo "<p>Перейти к <a href=\"../index.php\">таблице</a>.</p>";
+
+/*print($login . ".l<br>");
+print($password . ".p<br>");
+print($user->is_auth() . ".a<br>");*/
 
 HTML::header("sign_in");
-HTML::template("sign_in");
+HTML::template("sign_in", $user->is_auth());
 HTML::footer();
 HTML::flush();
 
 Session::store_session();
-
 ?>
 
