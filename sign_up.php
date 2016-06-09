@@ -7,6 +7,7 @@
  */ 
 include("classes/html.php");
 include("classes/session.php");
+//require_once("classes/menu.php");
 
 
 HTML::header("sign_up");

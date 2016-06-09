@@ -2,25 +2,43 @@ SELECT 'Creating table users';
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
   id          serial,
-  login       text,               -- user login
-  password      text,               -- user passwd
-  name        text,               -- display name
-  email       text,               -- user email
-  reg_date    date,               -- registration date
-  last_login  TIMESTAMP DEFAULT NULL, -- last login attempt
-  disabled    bool DEFAULT FALSE, -- user is disabled
+  admin       bool DEFAULT FALSE,
+  login       text,
+  password      text,
+  name        text,
+  email       text,
+  reg_date    date,
+  last_login  TIMESTAMP DEFAULT NULL,
+  disabled    bool DEFAULT FALSE,
   UNIQUE ( login ),
   UNIQUE ( email )
 );
 
 INSERT INTO users(
+        admin,
         login,
         password,
         name,
         email,
         reg_date)
     VALUES
-        ('test', 'login',
+        ('f',
+        'test', 'login',
         'Login Login',
         'test@login.com',
         '2016-06-08');
+
+INSERT INTO users(
+  admin,
+  login,
+  password,
+  name,
+  email,
+  reg_date)
+VALUES
+  ('t',
+   'mas_laresk',
+   'test',
+   'Mas Laresk',
+   'mas.laresk@gmail.com',
+   '2016-06-09');

@@ -1,19 +1,20 @@
-<?php
-/*05.06.2016 Osipov Gleb */
-/*includes classes to type on screen*/
++<?php
+/**
+ * Created by PhpStorm.
+ * User: Osipov Gleb
+ * Date: 09.06.16
+ * Time: 21:22
+ */
 
 include("classes/html.php");
-include("classes/helpers.php");
 include("classes/user.php");
 require_once("classes/db.php");
 require_once("classes/menu.php");
 
-HTML::header("mainpage");
-HTML::template("index");
+HTML::header("all_users");
+HTML::template("users");
 HTML::footer();
 HTML::flush();
 
 Session::store_session();
 ?>
-
-
