@@ -11,12 +11,15 @@ class User {
     private $authenticated;
     private $profile;
     static $session_key = "user_info";
-    function __construct() {
+    
+    function __construct(){
         $this->get_from_session();
     }
+    
     function __destruct() {
         $this->set_session();
     }
+    
     function get_from_session() {
         if (!Session::$session_started) {
             $this->fill_unauth();
@@ -30,6 +33,7 @@ class User {
         $this->profile = $sess_data['profile'];
         return $this->authenticated;
     }
+    
     function set_session() {
         Session::set(User::$session_key,
             array(
@@ -37,10 +41,12 @@ class User {
                 'profile' => $this->profile
             ));
     }
+    
     function fill_unauth() {
         $this->authenticated = false;
         $this->profile = array();
     }
+    
     function authorize($login, $password) {
         global $db;
 
@@ -53,6 +59,14 @@ class User {
 
     function is_auth() {
         return $this->authenticated;
+    }
+
+    function is_admin() {
+        return $this->profile["admin"] == 't';
+    }
+
+    function profile() {
+        return $this->profile;
     }
 }
 $user = new User();

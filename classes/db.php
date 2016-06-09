@@ -53,7 +53,9 @@ class DB {
         $resource = pg_query_params(
             $this->conn,
             "SELECT
-                id, login,
+                id, 
+                admin, 
+                login, 
                 name,
                 email,
                 reg_date,
