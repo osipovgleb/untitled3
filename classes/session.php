@@ -9,7 +9,7 @@
 class Session
 {
     static $cookie_name = "SPR2016";
-    static $session_dir = "../sessions/";
+    static $session_dir = "sessions/";
     static $data = array();
     static $session_started = false;
     static $uid = "";
@@ -31,7 +31,6 @@ class Session
     {
         if (!Session::$session_started)
             return;
-
         if (file_put_contents(Session::$session_dir.Session::$uid, serialize(Session::$data)) === false)
             die("Couldn't save session data.");
 
