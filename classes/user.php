@@ -61,6 +61,24 @@ class User {
         return $this->authenticated;
     }
 
+    function get_id() {
+        return $this->profile["id"];
+    }
+
+    function update_profile($id , $login, $password, $name, $email)
+    {
+        global $db;
+        if ($db->update_profile($id, $login, $password, $name, $email))
+        {
+            $this->profile['login'] = $login;
+            $this->profile['name'] = $name;
+            $this->profile['email'] = $email;
+            $this->set_session();
+            return true;
+        }
+        return false;
+    }
+
     function is_admin() {
         return $this->profile["admin"] == 't';
     }
