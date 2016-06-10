@@ -25,6 +25,9 @@ if ($function == "logout") {
     }
 }
 
+if ($user->is_auth())
+    header("Location: index.php");
+
 HTML::header("sign_in");
 HTML::template("sign_in");
 HTML::footer();

@@ -1,4 +1,4 @@
-+<?php
+<?php
 /**
  * Created by PhpStorm.
  * User: Osipov Gleb
@@ -12,7 +12,7 @@ require_once("classes/db.php");
 require_once("classes/menu.php");
 
 HTML::header("all_users");
-HTML::template("users");
+HTML::template("users", $db->all_u());
 HTML::footer();
 HTML::flush();
 

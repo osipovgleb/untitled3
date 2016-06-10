@@ -7,12 +7,37 @@
  */
 include("classes/html.php");
 include("classes/user.php");
-require_once("classes/db.php");
+require_once("classes/helpers.php");
 require_once("classes/menu.php");
 
+if (!$user->is_auth())
+    header("Location: index.php");
 
-HTML::header("profile");
-HTML::template("profile");
+if (!($id = get_or_post("id")))
+    $res = $db->one_u($user->get_id());
+elseif ((!$user->is_admin()) && ($id != $user->get_id())){
+        echo "Sorry, it isn't you id, you can't do this, your id is ". $user->get_id() . ".";
+        $res = $db->one_u($user->get_id());
+}
+else
+    $res = $db->one_u($id);
+
+if (($act =get_or_post("act")) == null){
+    HTML::header("profile");
+    if (get_or_post("view") == "edit")
+        HTML::template("edit", $res);
+    else
+        HTML::template("profile", $res);
+}
+elseif(($act =get_or_post("act")) == "refactor")
+{
+    if (($r = $user->update_profile($res['id'], get_or_post("login", $res['login']), get_or_post("password"), get_or_post("name", $res['name']), get_or_post("email", $res['email']))) === true);{
+        print_r($r);
+        echo ".a";
+        HTML::header("edit_profile");
+        HTML::template("edit", $res);
+    }
+}
 HTML::footer();
 HTML::flush();
 
