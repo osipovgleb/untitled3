@@ -19,7 +19,7 @@ else
     echo "<p><input type = \"submit\" value = \"Считать\" ></p>";
     echo "</form >";
     
-    echo "<table>";
+    echo "<table border='1px' cellpadding='5px' text='center'>";
     for ($j = 1; $j <= $y; $j++) {
         echo "<tr>";
         for ($i = 1; $i <= $x; $i++)
