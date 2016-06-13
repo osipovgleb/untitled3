@@ -15,7 +15,7 @@ class Menu{
         array("name" => "Профиль", "url" => "profile.php", "access" => "user"),               //3
         array("name" => "Список пользователей", "url" => "users.php", "access" => "admin"),    //4
         array("name" => "Регестрация", "url" => "sign_up.php", "access" => "guest"),           //5
-        array("name" => "Редактировать профиль", "url" => "profile.php?act=refactor", "access" => "user"));  //6
+        array("name" => "Редактировать профиль", "url" => "profile.php?view=edit", "access" => "user"));  //6
 
 
     static function get_menu(){

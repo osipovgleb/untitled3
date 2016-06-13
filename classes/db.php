@@ -33,7 +33,6 @@ class DB {
     }
 
     function all_rows($resource) {
-       // die("a");
         if ($resource === false)
             die("Все плохо: " . pg_last_error($this->conn));
         $res = array();
@@ -78,16 +77,27 @@ class DB {
         return $this->one_row($resource);
     }
 
-    function update_profile($id, $login, $password, $name, $email)
+    function update_profile($profile)
     {
-        if ($password)
+      //  if ($profile['password'])
             return pg_query_params($this->conn,
-                "UPDATE users SET login=$2, passwd=$3, name=$4, email=$5 WHERE id=$1",
-                array($id, $login, md5($password), $name, $email));
-        else
+                "UPDATE users SET login=$2, password=$3, name=$4, email=$5 WHERE id=$1",
+                $profile);
+  /*      else
             return pg_query_params($this->conn,
-                "UPDATE users SET login=$2, name=$3, email=$4 WHERE id=$1",
-                array($id, $login, $name, $email));
+                "UPDATE users SET login=$2, name=$4, email=$5 WHERE id=$1",
+                $profile);*/
+    }
+
+    function create_profile($new_profile)
+    {
+        /*$new_profile = array("login" => get_or_post("login"), "password" => $password2, get_or_post("email"), get_or_post("name"), date('Y-m-d'));*/
+        return pg_query_params($this->conn, 
+            "INSERT INTO users (login, password, email, name, reg_date) " . 
+            "VALUES($1, $2, $3, $4, $5)", 
+            $new_profile);
+        
+        
     }
 }
 $db = new DB("dbname=users user=mult");

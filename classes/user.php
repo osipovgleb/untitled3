@@ -50,11 +50,16 @@ class User {
     function authorize($login, $password) {
         global $db;
 
-        if (($this->profile = $db->check_auth($login, $password)) === null)
+        if (($this->profile = $db->check_auth($login, $password)) === null){
             $this->fill_unauth();
-        else
+            $this->set_session();
+            return false;
+        }
+        else{
             $this->authenticated = true;
-        $this->set_session();
+            $this->set_session();
+            return true;
+        }
     }
 
     function is_auth() {
@@ -65,14 +70,28 @@ class User {
         return $this->profile["id"];
     }
 
-    function update_profile($id , $login, $password, $name, $email)
+    function update_profile($profile)
     {
         global $db;
-        if ($db->update_profile($id, $login, $password, $name, $email))
+        if ($db->update_profile($profile))
         {
-            $this->profile['login'] = $login;
-            $this->profile['name'] = $name;
-            $this->profile['email'] = $email;
+            $this->profile['login'] = $profile['login'];
+            $this->profile['name'] = $profile['name'];
+            $this->profile['email'] = $profile['email'];
+            $this->set_session();
+            return true;
+        }
+        return false;
+    }
+
+    function create_profile($new_profile)
+    {
+        global $db;
+        if ($db->create_profile($new_profile))
+        {
+            $this->authenticated = true;
+            $this->profile['login'] = $new_profile['login'];
+            $this->profile['password'] = $new_profile['password'];
             $this->set_session();
             return true;
         }
