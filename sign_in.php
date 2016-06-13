@@ -13,7 +13,6 @@ require_once("classes/menu.php");
 $login = get_or_post("login");
 $password = get_or_post("password");
 $function = get_or_post("function");
-$user->authorize($login, $password);
 
 if ($function == "logout") {
     if (!$user->is_auth())
@@ -25,8 +24,19 @@ if ($function == "logout") {
     }
 }
 
-if ($user->is_auth())
+if ($user->is_auth()) {
+    Session::store_session();
     header("Location: index.php");
+    exit(0);
+}
+elseif ($user->authorize($login, $password) === true){
+    Session::store_session();
+    header("Location: index.php");
+    exit(0);
+}
+
+
+
 
 HTML::header("sign_in");
 HTML::template("sign_in");

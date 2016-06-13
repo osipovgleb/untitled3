@@ -22,22 +22,26 @@ elseif ((!$user->is_admin()) && ($id != $user->get_id())){
 else
     $res = $db->one_u($id);
 
-if (($act =get_or_post("act")) == null){
-    HTML::header("profile");
-    if (get_or_post("view") == "edit")
-        HTML::template("edit", $res);
-    else
-        HTML::template("profile", $res);
-}
-elseif(($act =get_or_post("act")) == "refactor")
+if (get_or_post("act") == "refactor")
 {
-    if (($r = $user->update_profile($res['id'], get_or_post("login", $res['login']), get_or_post("password"), get_or_post("name", $res['name']), get_or_post("email", $res['email']))) === true);{
-        print_r($r);
-        echo ".a";
-        HTML::header("edit_profile");
-        HTML::template("edit", $res);
-    }
+    $profile = array(
+        "id" => $res['id'],
+        "login" => get_or_post("login", $res['login']),
+        "password" => get_or_post("password"),
+        "name" => get_or_post("name", $res['name']),
+        "email" => get_or_post("email", $res['email']));
+    if ($user->update_profile($profile))
+        header("Location: profile.php");
 }
+HTML::header("profile");
+
+if (get_or_post("view") == "edit"){
+    HTML::template("edit", $res);
+}
+else{
+    HTML::template("profile", $res);
+}
+
 HTML::footer();
 HTML::flush();
 
