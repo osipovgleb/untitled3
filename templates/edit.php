@@ -1,3 +1,4 @@
+
 <?php
 /**
  * Created by PhpStorm.
@@ -10,8 +11,8 @@
 <h1>Профиль</h1>
 
 
-<form method="post" action="profile.php?act=refactor">
-
+<form method="post" action="profile.php">
+<input type="hidden" name="act" value="refactor">
 <table>
 <?php
 $u = $args;
@@ -21,7 +22,7 @@ foreach($u  as $k => $t){
         echo "<tr><td>|";
         echo $k . " => ";
         if ($user->is_admin() || !($k == "admin"))
-          echo "<input type = \"text\" value = \"$u[$k]\" name = \"$k\">";
+            echo "<input type = \"text\" value = \"$u[$k]\" name = \"$k\">";
         echo "|</td></tr>";
     }
 }?>

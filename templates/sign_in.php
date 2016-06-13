@@ -14,16 +14,6 @@
     <p><input type="password" name="password"></p>
     <p><input type="submit" value="Проверить"></p>
 </form>
-<p>Или <a href="sign_up.php">зарегестрируйтесь</a></p>
-
-<?php
-global $user;
-if (!$user->is_auth())
-  echo "<p> Не существует такого пользователя или не совпадает пароль, попробуйте войти еще раз или,<a href=\"sign_up.php\">зарегестрируйтесь</a>.</p>"; 
-else
-  echo "<p>Перейти к <a href=\"index.php\">таблице</a>.</p>";
-?>
-
 
 
 

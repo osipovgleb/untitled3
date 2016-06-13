@@ -8,15 +8,14 @@
 $user = $args;
 ?>
 
-<h1>Профиль</h1>
+    <h1>Профиль</h1>
 
 <?php
 echo "<table>";
-    foreach($user  as $k => $t){
-      echo "<tr>";
-        echo "<td>|". $k . "=>" . $t . "|</td>";
-      echo "</tr>";
-    }
-    echo "</table>";
-echo "<p><a href = \"profile.php?id=act=refactor&&\"" . $user['id']. ">Изменить</a></p>";
-?>
+foreach($user  as $k => $t){
+    echo "<tr>";
+    echo "<td>|". $k . "=>" . $t . "|</td>";
+    echo "</tr>";
+}
+echo "</table>";?>
+<p><a href = "profile.php?view=edit&&id=<?php echo $user['id'];?>">Изменить</a></p>
