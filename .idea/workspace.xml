@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b2cb7c99-70e3-47b4-811b-aa65cfa1a2cb" name="Default" comment="3 comit from linux">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
+    <list default="true" id="b2cb7c99-70e3-47b4-811b-aa65cfa1a2cb" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/data.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/user.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/db.php" afterPath="$PROJECT_DIR$/classes/db.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/menu.php" afterPath="$PROJECT_DIR$/classes/menu.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/session.php" afterPath="$PROJECT_DIR$/classes/session.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/user.php" afterPath="$PROJECT_DIR$/classes/user.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/profile.php" afterPath="$PROJECT_DIR$/profile.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sign_in.php" afterPath="$PROJECT_DIR$/sign_in.php" />
     </list>
     <ignored path="untitled3.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -293,6 +288,7 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -376,7 +372,7 @@
       <workItem from="1465803374877" duration="18385000" />
       <workItem from="1465888915383" duration="1568000" />
       <workItem from="1465972164777" duration="23278000" />
-      <workItem from="1466005230234" duration="8903000" />
+      <workItem from="1466005230234" duration="9099000" />
     </task>
     <task id="LOCAL-00001" summary="aaa">
       <created>1466005366588</created>
@@ -392,11 +388,18 @@
       <option name="project" value="LOCAL" />
       <updated>1466005583299</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="this commit is with stable sql functions">
+      <created>1466014246642</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1466014246642</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="162977000" />
+    <option name="totallyTimeSpent" value="163173000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="28" width="1922" height="1019" extended-state="6" />
@@ -438,7 +441,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="aaa" />
     <MESSAGE value="@ comit from linux" />
-    <option name="LAST_COMMIT_MESSAGE" value="@ comit from linux" />
+    <MESSAGE value="this commit is with stable sql functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="this commit is with stable sql functions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
