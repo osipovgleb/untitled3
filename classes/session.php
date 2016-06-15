@@ -33,7 +33,6 @@ class Session
             return;
         if (file_put_contents(Session::$session_dir.Session::$uid, serialize(Session::$data)) === false)
             die("Couldn't save session data.");
-
     }
     
     static private function restore_session()
@@ -41,7 +40,7 @@ class Session
         Session::$uid = $_COOKIE[Session::$cookie_name];
         Session::$data = unserialize(file_get_contents(Session::$session_dir.Session::$uid));
 	}
-    
+
     static public function set($name, $value)
     {
         if (Session::$session_started === false)

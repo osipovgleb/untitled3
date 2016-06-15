@@ -30,7 +30,7 @@ if (get_or_post("act") == "refactor")
         "password" => get_or_post("password", null),
         "name" => get_or_post("name", $res['name']),
         "email" => get_or_post("email", $res['email']));
-    var_dump($profile);
+   // var_dump($profile);
     if($profile['password'] == "")
       $profile['password'] = NULL;
     if ($user->update_profile($profile)){

@@ -36,30 +36,27 @@ class User {
     
     function set_session() {
         Session::set(User::$session_key,
-            array(
-                'authenticated' => $this->authenticated,
-                'profile' => $this->profile
-            ));
+            array('authenticated' => $this->authenticated,
+                'profile' => $this->profile));
     }
     
     function fill_unauth() {
         $this->authenticated = false;
         $this->profile = array();
     }
-    
-    function authorize($login, $password) {
-        global $db;
 
-        if (($this->profile = $db->check_auth($login, $password)) === null){
-            $this->fill_unauth();
-            $this->set_session();
-            return false;
-        }
-        else{
+    function authorize($login, $password)
+    {
+        global $db;
+        if (($this->profile = $db->check_auth($login, $password)) !== null)
+        {
             $this->authenticated = true;
+        //    $this->profile[''] = $db->get_rights($this->profile['id']);
             $this->set_session();
             return true;
         }
+        $this->fill_unauth();
+        return false;
     }
 
     function is_auth() {

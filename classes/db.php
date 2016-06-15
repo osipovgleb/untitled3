@@ -60,20 +60,7 @@ class DB {
     }
 
     function check_auth($login, $password) {
-      /*  $resource = pg_query_params(
-            $this->conn,
-            "SELECT
-                id, 
-                admin, 
-                login, 
-                name,
-                email,
-                reg_date,
-                last_login
-             FROM users WHERE
-                login=$1 AND password=$2 AND NOT disabled",
-            array($login, $password));*/
-        $resource = pg_query_params($this->conn, "SELECT * FROM sign_in($1, $2", $login, $password);
+        $resource = pg_query_params($this->conn, "SELECT * FROM sign_in($1, $2)", array($login, $password));
         return $this->one_row($resource);
     }
 
