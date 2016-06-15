@@ -75,5 +75,14 @@ class DB {
         $r = pg_query_params($this->conn, "SELECT * FROM user_create($1, $2, $3, $4, $5)", $new_profile);
         return pg_fetch_assoc($r);
     }
+
+    function get_rights($id)
+    {
+        $resource = pg_query_params($this->conn, "SELECT * FROM get_rights($1)", array($id)) or die(pg_last_error());
+$t = $this->one_row($resource);
+        var_dump($t);
+        die(".a");
+        return $t;
+    }
 }
 $db = new DB("dbname=users user=mult");

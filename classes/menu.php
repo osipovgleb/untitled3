@@ -18,30 +18,19 @@ class Menu{
     static function get_menu(){
         global $user;
         $head_str = "<p>";
-        foreach (Menu::$map as $k => $v) {
-            if (Menu::$map[$k]["access"] == "all") {
-                $head_str .= "<a href=\"" . $v["url"] . "\">" . $v["name"] . "</a>";
-                if ($k != count(Menu::$map) - 1)
-                    $head_str .= " | ";
+        foreach (Menu::$map as $m)
+        {
+            if ($m['access'] == "all")
+                $head_str .= "<a href='" . $m['url'] . "'>" . $m['name'] . "</a> | ";
+            elseif ($user->is_auth())
+            {
+                if ($m['access'] == "user" || ($user->has_rights("users_upd") && $m['access'] == "admin"))
+                    $head_str .= "<a href='" . $m['url'] . "'>" . $m['name'] . "</a> | ";
             }
-            if ($user->is_auth()){
-                if(Menu::$map[$k]["access"] == "user" ) {
-                    $head_str .= "<a href=\"" . $v["url"] . "\">" . $v["name"] . "</a>";
-                    if ($k != count(Menu::$map) - 1)
-                        $head_str .= " | ";
-                }
-                elseif ((Menu::$map[$k]["access"] == "admin" || Menu::$map[$k]["access"] == "user") && $user->is_admin()) {
-                    $head_str .= "<a href=\"" . $v["url"] . "\">" . $v["name"] . "</a>";
-                    if ($k != count(Menu::$map) - 1)
-                        $head_str .= " | ";
-                }
-            }
-            elseif(Menu::$map[$k]["access"] == "guest") {
-                $head_str .= "<a href=\"" . $v["url"] . "\">" . $v["name"] . "</a>";
-                if ($k != count(Menu::$map) - 1)
-                    $head_str .= " | ";
-            }
+            elseif ($m['access'] == "guest")
+                $head_str .= "<a href='" . $m['url'] . "'>" . $m['name'] . "</a> | ";
         }
+        $head_str = substr($head_str, 0, strlen($head_str) - 3) . "\n";
         $head_str .= "</p>";
         return $head_str;
     }

@@ -1,6 +1,15 @@
 DROP FUNCTION user_create(text, text, text, text, date);
 DROP FUNCTION update_user(int, text, text, text, text);
 DROP FUNCTION sign_in(text, text);
+DROP FUNCTION get_rights(int);
+
+CREATE OR REPLACE FUNCTION get_rights(id int)
+  RETURNS TABLE (
+    profile_upd bool,
+    users_upd bool
+  ) AS $$
+SELECT profile_upd, users_upd FROM roles WHERE id=(SELECT role_id FROM users WHERE id=$1);
+$$ LANGUAGE SQL STABLE;
 
 CREATE OR REPLACE FUNCTION update_user(
   id int,         -- $1
@@ -20,7 +29,7 @@ UPDATE users SET (login, password, name, email) =
 WHERE id=$1 RETURNING id;
 $$ LANGUAGE SQL VOLATILE;
 
-CREATE OR REPLACE FUNCTION get_users( id int )
+/*CREATE OR REPLACE FUNCTION get_users( id int )
   RETURNS TABLE (
     id int,
     login text,
@@ -35,11 +44,10 @@ SELECT id, login, name, email, reg_date, last_login FROM users WHERE
       ELSE id=$1
       END;
 $$ LANGUAGE SQL STABLE;
-
+*/
 CREATE OR REPLACE FUNCTION sign_in( l_login text, l_passwd text )
   RETURNS TABLE (
     id int,
-    admin bool,
     login text,
     name text,
     email text,
@@ -52,7 +60,7 @@ BEGIN
   SELECT users.last_login INTO l_last_login FROM users WHERE users.login=$1 AND users.password=$2 AND NOT users.disabled;
   UPDATE users SET last_login=NOW() WHERE users.login=$1 AND users.password=$2;
   RETURN QUERY
-  SELECT users.id, users.admin, users.login, users.name, users.email, users.reg_date, l_last_login FROM users WHERE users.login=$1 AND users.password=$2;
+  SELECT users.id,  users.login, users.name, users.email, users.reg_date, l_last_login FROM users WHERE users.login=$1 AND users.password=$2;
 END;
 $$ LANGUAGE plpgsql VOLATILE;
 
@@ -69,4 +77,6 @@ BEGIN
     RETURN -2;
 END;
 $$ LANGUAGE plpgsql VOLATILE;
+
+
 

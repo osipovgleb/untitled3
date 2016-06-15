@@ -42,7 +42,9 @@ class User {
     
     function fill_unauth() {
         $this->authenticated = false;
-        $this->profile = array();
+        $this->profile = array(
+            "rights" => array("profile_upd" => false, "users_upd" => false)
+        );
     }
 
     function authorize($login, $password)
@@ -51,7 +53,7 @@ class User {
         if (($this->profile = $db->check_auth($login, $password)) !== null)
         {
             $this->authenticated = true;
-        //    $this->profile[''] = $db->get_rights($this->profile['id']);
+            $this->profile['rights'] = $db->get_rights(intval($this->profile['id']));
             $this->set_session();
             return true;
         }
@@ -101,6 +103,11 @@ class User {
 
     function profile() {
         return $this->profile;
+    }
+
+    function has_rights($rights)
+    {
+        return ($this->profile['rights'][$rights] == 't') ? true : false;
     }
 }
 $user = new User();
