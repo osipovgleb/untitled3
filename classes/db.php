@@ -60,7 +60,7 @@ class DB {
     }
 
     function check_auth($login, $password) {
-        $resource = pg_query_params(
+      /*  $resource = pg_query_params(
             $this->conn,
             "SELECT
                 id, 
@@ -72,32 +72,21 @@ class DB {
                 last_login
              FROM users WHERE
                 login=$1 AND password=$2 AND NOT disabled",
-            array($login, $password)
-        );
+            array($login, $password));*/
+        $resource = pg_query_params($this->conn, "SELECT * FROM sign_in($1, $2", $login, $password);
         return $this->one_row($resource);
     }
 
     function update_profile($profile)
     {
-      //  if ($profile['password'])
-            return pg_query_params($this->conn,
-                "UPDATE users SET login=$2, password=$3, name=$4, email=$5 WHERE id=$1",
-                $profile);
-  /*      else
-            return pg_query_params($this->conn,
-                "UPDATE users SET login=$2, name=$4, email=$5 WHERE id=$1",
-                $profile);*/
+        return pg_query_params($this->conn, "SELECT * FROM update_user($1, $2, $3, $4, $5)",  $profile);/*array($id, $login, $password, $name, $email)*/
     }
 
     function create_profile($new_profile)
     {
-        /*$new_profile = array("login" => get_or_post("login"), "password" => $password2, get_or_post("email"), get_or_post("name"), date('Y-m-d'));*/
-        return pg_query_params($this->conn, 
-            "INSERT INTO users (login, password, email, name, reg_date) " . 
-            "VALUES($1, $2, $3, $4, $5)", 
-            $new_profile);
-        
-        
+        /*$new_profile = array("login" => $login, "password" => $password2, "name" => get_or_post("name"), "email" => get_or_post("email"),"reg_date" => date('Y-m-d'));*/
+        $r = pg_query_params($this->conn, "SELECT * FROM user_create($1, $2, $3, $4, $5)", $new_profile);
+        return pg_fetch_assoc($r);
     }
 }
 $db = new DB("dbname=users user=mult");

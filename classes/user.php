@@ -87,15 +87,15 @@ class User {
     function create_profile($new_profile)
     {
         global $db;
-        if ($db->create_profile($new_profile))
+        if (($res = $db->create_profile($new_profile)['user_create']) > 0)
         {
             $this->authenticated = true;
             $this->profile['login'] = $new_profile['login'];
             $this->profile['password'] = $new_profile['password'];
             $this->set_session();
-            return true;
+            return $res;
         }
-        return false;
+        return $res;
     }
 
     function is_admin() {
