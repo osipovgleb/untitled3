@@ -14,6 +14,8 @@ require_once("classes/helpers.php");
 $login = get_or_post("login");
 $password1 = get_or_post("password1");
 $password2 = get_or_post("password2");
+$view = "sign_up";
+$res = "";
 
 if ($user->is_auth()) {
     Session::store_session();
@@ -24,22 +26,30 @@ if ($user->is_auth()) {
 if (get_or_post("act") == "sign_up")
 {
     if ($password1 == $password2) {
-        $new_profile = array("login" => $login, "password" => $password2, "email" => get_or_post("email"),"name" => get_or_post("name"), "reg_date" => date('Y-m-d'));
-        if ($user->create_profile($new_profile)){
+
+        $new_profile = array("login" => $login, "password" => $password2, "name" => get_or_post("name"), "email" => get_or_post("email"),"reg_date" => date('Y-m-d'));
+        if($new_profile['password'] == "")
+            $new_profile['password'] = NULL;
+
+        if (($res = $user->create_profile($new_profile)) > 0){
             $user->authorize($login, $password2);
             Session::store_session();
 
             header("Location: index.php");
             exit(0);
         }
+        else
+            $view = "error";
+
     }
     else
         echo "Пароли не совпадают";
 }
 
+$res = intval($res);
 
-HTML::header("sign_up");
-HTML::template("sign_up");
+HTML::header($view);
+HTML::template($view, $res);
 HTML::footer();
 HTML::flush();
 Session::store_session();

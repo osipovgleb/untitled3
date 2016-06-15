@@ -27,20 +27,28 @@ if (get_or_post("act") == "refactor")
     $profile = array(
         "id" => $res['id'],
         "login" => get_or_post("login", $res['login']),
-        "password" => get_or_post("password"),
+        "password" => get_or_post("password", null),
         "name" => get_or_post("name", $res['name']),
         "email" => get_or_post("email", $res['email']));
-    if ($user->update_profile($profile))
-        header("Location: profile.php");
+    var_dump($profile);
+    if($profile['password'] == "")
+      $profile['password'] = NULL;
+    if ($user->update_profile($profile)){
+        $r = "Location: profile.php?id=" . $res['id'];
+        header($r);
+    }
 }
-HTML::header("profile");
 
 if (get_or_post("view") == "edit"){
+    HTML::header("edit_profile");
     HTML::template("edit", $res);
 }
 else{
+    HTML::header("profile");
     HTML::template("profile", $res);
 }
+
+
 
 HTML::footer();
 HTML::flush();
