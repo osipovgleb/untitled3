@@ -1,7 +1,7 @@
 DROP FUNCTION user_create(text, text, text, text, date);
 DROP FUNCTION update_user(int, text, text, text, text);
 DROP FUNCTION sign_in(text, text);
-DROP FUNCTION get_rights(int);
+DROP FUNCTION IF EXISTS get_rights(int);
 DROP FUNCTION IF EXISTS get_users(int);
 
 CREATE OR REPLACE FUNCTION update_user(
@@ -38,10 +38,11 @@ CREATE OR REPLACE FUNCTION get_users(id int)
     login text,
     name text,
     email text,
+    role_id int,
     reg_date date,
     last_login timestamp
   ) AS $$
-SELECT id, login, name, email, reg_date, last_login FROM users WHERE
+SELECT id, login, name, email, role_id, reg_date, last_login FROM users WHERE
   CASE $1 IS NULL
       WHEN TRUE THEN TRUE
       ELSE id=$1

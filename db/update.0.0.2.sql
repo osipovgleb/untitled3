@@ -1,3 +1,4 @@
+DROP TABLE roles;
 BEGIN;
 
 UPDATE users SET login=CONCAT(name, '_', id)

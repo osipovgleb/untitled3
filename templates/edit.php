@@ -17,13 +17,9 @@ $u = $args;
         <?php
         global $user;
         foreach($u  as $k => $t){
-            if (!($k == "id" || $k == "reg_date" || $k == "last_login")) {
-                echo "<tr><td>";
-                echo $k . " : ";
-                if ($user->has_rights("users_upd") || !($k == "admin"))
-                    echo "<input type = 'text' value='$u[$k]' name = '$k'>";
-                echo "</td></tr>";
-            }
+            if (!($k == "id" || $k == "reg_date" || $k == "last_login"))
+                if (($user->has_rights("users_upd") == 1) || !($k == "role_id"))
+                    echo "<tr><td>". $k . " : <input type = 'text' value='$u[$k]' name = '$k'></td></tr>";
         }?>
         <tr><td>password : <input type = "text"  name = "password"></td></tr>
     </table>
