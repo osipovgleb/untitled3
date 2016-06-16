@@ -1,0 +1,69 @@
+body{
+    background-color: #404040;
+}
+
+.main {
+    margin: auto;
+    display: block;
+    border: 2px solid white;
+    border-radius: 15px;
+    width: 50%;
+    height: 760px;
+    overflow: scroll;
+}
+
+.main p {
+    color: white;
+}
+
+.main a {
+    color: white;
+}
+
+.main h1 {
+    color: white;
+}
+.main input {
+    margin-left: 14px;
+    border-radius: 3px;
+    border: solid 1px darkgray;
+    box-shadow: 4px 4px 10px 3px #666;
+}
+
+.main table {
+    width: auto;
+    margin: auto;
+    background-color: #404040;
+    color: white;
+}
+
+#mult{
+    width: auto;
+    margin: auto;
+    background-color: #ffffff;
+    color: #000000;
+   // font-weight: bold;
+}
+
+#mult td {
+    width: auto;
+    height: auto;
+    color: black;
+}
+
+#mult a {
+    color: black;
+}
+
+#menu {
+     margin-left: 1%;
+     margin-top: 1%;
+     display: block;
+     width: 15%;
+     border-radius: 15px;
+     border: 3px solid white;
+}
+
+#menu a {
+    color: white;
+}

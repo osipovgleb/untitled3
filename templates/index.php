@@ -19,7 +19,7 @@ else
     echo "<p><input type = \"submit\" value = \"Считать\" ></p>";
     echo "</form >";
     
-    echo "<table border='1px' cellpadding='5px' text='center'>";/*style='overflow:auto; width: 300px; height: 300px;'*/
+    echo "<table id='mult' cellpadding='5px' align='center' border='3px'>";
     for ($j = 1; $j <= $y; $j++) {
         echo "<tr>";
         for ($i = 1; $i <= $x; $i++)

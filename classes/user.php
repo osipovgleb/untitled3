@@ -53,7 +53,7 @@ class User {
         if (($this->profile = $db->check_auth($login, $password)) !== null)
         {
             $this->authenticated = true;
-            $this->profile['rights'] = $db->get_rights(intval($this->profile['id']));
+            $this->profile['rights'] = $db->get_rights($this->profile['id']);
             $this->set_session();
             return true;
         }
@@ -97,10 +97,10 @@ class User {
         return $res;
     }
 
-    function is_admin() {
-        return $this->profile["admin"] == 't';
+  /*  function is_admin() {
+        return $this->profile['admin'] == 't';
     }
-
+*/
     function profile() {
         return $this->profile;
     }

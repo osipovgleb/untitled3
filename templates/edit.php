@@ -18,11 +18,11 @@ $u = $args;
         global $user;
         foreach($u  as $k => $t){
             if (!($k == "id" || $k == "reg_date" || $k == "last_login")) {
-                echo "<tr><td>|";
-                echo $k . " => ";
-                if ($user->is_admin() || !($k == "admin"))
+                echo "<tr><td>";
+                echo $k . " : ";
+                if ($user->has_rights("users_upd") || !($k == "admin"))
                     echo "<input type = 'text' value='$u[$k]' name = '$k'>";
-                echo "|</td></tr>";
+                echo "</td></tr>";
             }
         }?>
         <tr><td>password : <input type = "text"  name = "password"></td></tr>

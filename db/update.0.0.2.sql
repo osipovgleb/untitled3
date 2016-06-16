@@ -1,11 +1,9 @@
 BEGIN;
 
-DROp TABLE roles;
-
 UPDATE users SET login=CONCAT(name, '_', id)
 WHERE login IS NULL;
 
-ALTER TABLE users ALTER COLUMN login SET NOT NULL;
+--ALTER TABLE users ALTER COLUMN login SET NOT NULL;
 
 CREATE TABLE roles (
   id serial,

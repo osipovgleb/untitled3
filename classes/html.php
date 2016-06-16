@@ -36,6 +36,18 @@ class HTML{
         HTML::$templates[] = array($name, $args, TYPE_TEMPLATE);
     }
 
+    static function include_css($name) {
+        HTML::$css[] = $name;
+    }
+
+    static function put_css() {
+        HTML::$css = array_unique(HTML::$css);
+        foreach (HTML::$css as $name) {
+            echo "<link rel='stylesheet' ".
+                "href='styles/" . $name . "' />";
+        }
+    }
+
     /*function: includes all files from array*/
     static public function flush()
     {
@@ -52,5 +64,7 @@ class HTML{
             include(HTML::$templates_dir . $name . ".php");
         }
     }
+
+
 }?>
 

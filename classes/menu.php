@@ -21,16 +21,16 @@ class Menu{
         foreach (Menu::$map as $m)
         {
             if ($m['access'] == "all")
-                $head_str .= "<a href='" . $m['url'] . "'>" . $m['name'] . "</a> | ";
+                $head_str .= "<a href='" . $m['url'] . "'>" . $m['name'] . "</a><br>";
             elseif ($user->is_auth())
             {
                 if ($m['access'] == "user" || ($user->has_rights("users_upd") && $m['access'] == "admin"))
-                    $head_str .= "<a href='" . $m['url'] . "'>" . $m['name'] . "</a> | ";
+                    $head_str .= "<a  href='" . $m['url'] . "'>" . $m['name'] . "</a><br>";
             }
             elseif ($m['access'] == "guest")
-                $head_str .= "<a href='" . $m['url'] . "'>" . $m['name'] . "</a> | ";
+                $head_str .= "<a href='" . $m['url'] . "'>" . $m['name'] . "</a><br>";
         }
-        $head_str = substr($head_str, 0, strlen($head_str) - 3) . "\n";
+        $head_str = substr($head_str, 0, strlen($head_str) - 4);
         $head_str .= "</p>";
         return $head_str;
     }

@@ -2,14 +2,7 @@ DROP FUNCTION user_create(text, text, text, text, date);
 DROP FUNCTION update_user(int, text, text, text, text);
 DROP FUNCTION sign_in(text, text);
 DROP FUNCTION get_rights(int);
-
-CREATE OR REPLACE FUNCTION get_rights(id int)
-  RETURNS TABLE (
-    profile_upd bool,
-    users_upd bool
-  ) AS $$
-SELECT profile_upd, users_upd FROM roles WHERE id=(SELECT role_id FROM users WHERE id=$1);
-$$ LANGUAGE SQL STABLE;
+DROP FUNCTION IF EXISTS get_users(int);
 
 CREATE OR REPLACE FUNCTION update_user(
   id int,         -- $1
@@ -29,7 +22,17 @@ UPDATE users SET (login, password, name, email) =
 WHERE id=$1 RETURNING id;
 $$ LANGUAGE SQL VOLATILE;
 
-/*CREATE OR REPLACE FUNCTION get_users( id int )
+
+CREATE OR REPLACE FUNCTION get_rights(id int)
+  RETURNS TABLE (
+    profile_upd bool,
+    users_upd bool
+  ) AS $$
+SELECT profile_upd, users_upd FROM roles WHERE id=(SELECT role_id FROM users WHERE id=$1);
+$$ LANGUAGE SQL STABLE;
+
+
+CREATE OR REPLACE FUNCTION get_users(id int)
   RETURNS TABLE (
     id int,
     login text,
@@ -44,7 +47,7 @@ SELECT id, login, name, email, reg_date, last_login FROM users WHERE
       ELSE id=$1
       END;
 $$ LANGUAGE SQL STABLE;
-*/
+
 CREATE OR REPLACE FUNCTION sign_in( l_login text, l_passwd text )
   RETURNS TABLE (
     id int,
@@ -77,6 +80,5 @@ BEGIN
     RETURN -2;
 END;
 $$ LANGUAGE plpgsql VOLATILE;
-
 
 

@@ -15,7 +15,7 @@ if (!$user->is_auth())
 
 if (!($id = get_or_post("id")))
     $res = $db->one_u($user->get_id());
-elseif ((!$user->is_admin()) && ($id != $user->get_id())){
+elseif (!$user->has_rights("users_upd") && ($id != $user->get_id())){
         echo "Sorry, it isn't you id, you can't do this, your id is ". $user->get_id() . ".";
         $res = $db->one_u($user->get_id());
 }

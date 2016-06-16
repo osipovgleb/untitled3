@@ -9,10 +9,12 @@ $users = $args;
 ?>
 
 <h1>Вы смотрите на всех пользователей</h1>
-
+<table id = mult border="3px">
 <?php
+
     foreach ($users as $k => $v) {
-      print_r("|id = " . $users[$k]["id"] . "|login = " . "<a href=\"profile.php?id=" . $users[$k]["id"] ."\">" . $users[$k]["login"] . "</a>" ."|<br>");
+      print_r("<tr><td>id = " . $users[$k]["id"] . "login = " . "<a href=\"profile.php?id=" . $users[$k]["id"] ."\">" . $users[$k]["login"] . "</a></td></tr>");
     }
 ?>
+</table>
 

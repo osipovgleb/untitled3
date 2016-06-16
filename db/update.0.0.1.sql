@@ -1,5 +1,6 @@
 
 BEGIN;
+DROP TABLE sysvariables;
 
 CREATE TABLE sysvariables (
   var_name TEXT,

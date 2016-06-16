@@ -32,7 +32,8 @@ class DB {
         return ($res === false ? null : $res);
     }
 
-    function all_rows($resource) {
+    function all_rows($resource)
+    {
         if ($resource === false)
             die("Все плохо: " . pg_last_error($this->conn));
         $res = array();
@@ -41,21 +42,14 @@ class DB {
         return $res;
     }
 
-    function get_test() {
-        $resource = pg_query(
-            $this->conn,
-            "SELECT * FROM users"
-        );
-        return $this->all_rows($resource);
-    }
-
     function all_u() {
-        $resource = pg_query($this->conn, "SELECT id, login FROM users");
+        $resource = pg_query($this->conn, "SELECT * FROM get_users(null)") or die(pg_last_error());
         return $this->all_rows($resource);
     }
     
-    function one_u($id) {
-        $resource = pg_query_params($this->conn, "SELECT id, admin, login, name, email, reg_date, last_login FROM users WHERE id=$1", array($id));
+    function one_u($id  = NULL) {
+        $resource = pg_query_params($this->conn, "SELECT * FROM get_users($1)",
+            array($id)) or die(pg_last_error());
         return $this->one_row($resource);
     }
 
@@ -79,9 +73,7 @@ class DB {
     function get_rights($id)
     {
         $resource = pg_query_params($this->conn, "SELECT * FROM get_rights($1)", array($id)) or die(pg_last_error());
-$t = $this->one_row($resource);
-        var_dump($t);
-        die(".a");
+        $t = $this->one_row($resource);
         return $t;
     }
 }
