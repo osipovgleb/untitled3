@@ -4,12 +4,8 @@
  * User: Osipov Gleb
  * Date: 06.06.16
  * Time: 15:09
- */ 
-include("classes/html.php");
-include("classes/session.php");
-require_once("classes/menu.php");
-require_once("classes/user.php");
-require_once("classes/helpers.php");
+ */
+include("classes/init.php");
 
 $login = get_or_post("login");
 $password1 = get_or_post("password1");

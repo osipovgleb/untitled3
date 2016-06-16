@@ -6,10 +6,7 @@
  * Time: 21:22
  */
 
-include("classes/html.php");
-include("classes/user.php");
-require_once("classes/db.php");
-require_once("classes/menu.php");
+include("classes/init.php");
 
 HTML::header("all_users");
 HTML::template("users", $db->all_u());

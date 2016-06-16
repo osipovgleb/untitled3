@@ -2,11 +2,7 @@
 /*05.06.2016 Osipov Gleb */
 /*includes classes to type on screen*/
 
-include("classes/html.php");
-include("classes/helpers.php");
-include("classes/user.php");
-require_once("classes/db.php");
-require_once("classes/menu.php");
+include("classes/init.php");
 
 HTML::header("mainpage");
 HTML::template("index");

@@ -5,10 +5,7 @@
  * Date: 06.06.16
  * Time: 15:09
  */
-include("classes/html.php");
-include("classes/user.php");
-include("classes/helpers.php");
-require_once("classes/menu.php");
+include("classes/init.php");
 $login = get_or_post("login");
 $password = get_or_post("password");
 $function = get_or_post("function");

@@ -5,10 +5,7 @@
  * Date: 09.06.16
  * Time: 18:26
  */
-include("classes/html.php");
-include("classes/user.php");
-require_once("classes/helpers.php");
-require_once("classes/menu.php");
+include("classes/init.php");
 
 if (!$user->is_auth())
     header("Location: index.php");
@@ -27,9 +24,10 @@ if (get_or_post("act") == "refactor")
     $profile = array(
         "id" => $res['id'],
         "login" => get_or_post("login", $res['login']),
-        "password" => get_or_post("password", null),
+        "password"=> get_or_post("password", null),
         "name" => get_or_post("name", $res['name']),
-        "email" => get_or_post("email", $res['email']));
+        "email" => get_or_post("email", $res['email']),
+        "role_id" => get_or_post("role_id", $res['role_id']));
    // var_dump($profile);
     if($profile['password'] == "")
       $profile['password'] = NULL;

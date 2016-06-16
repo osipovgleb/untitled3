@@ -60,7 +60,7 @@ class DB {
 
     function update_profile($profile)
     {
-        return pg_query_params($this->conn, "SELECT * FROM update_user($1, $2, $3, $4, $5)",  $profile);/*array($id, $login, $password, $name, $email)*/
+        return pg_query_params($this->conn, "SELECT * FROM update_user($1, $2, $3, $4, $5, $6)",  $profile);/*array($id, $login, $password, $name, $email, $role_id)*/
     }
 
     function create_profile($new_profile)

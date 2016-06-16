@@ -9,16 +9,18 @@ CREATE OR REPLACE FUNCTION update_user(
   login text,
   password text,    -- $3
   name text,
-  email text      -- $5
+  email text,
+  role_id int-- $5
 ) RETURNS int AS $$
-UPDATE users SET (login, password, name, email) =
+UPDATE users SET (login, password, name, email, role_id) =
                                                  ($2,
                                                   CASE $3 IS NULL
                                                     WHEN TRUE THEN(SELECT password FROM users WHERE id=$1)
                                                   ELSE $3
                                                   END,
                                                   $4,
-                                                  $5)
+                                                  $5,
+                                                  $6)
 WHERE id=$1 RETURNING id;
 $$ LANGUAGE SQL VOLATILE;
 
