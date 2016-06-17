@@ -32,6 +32,18 @@ class DB {
         return ($res === false ? null : $res);
     }
 
+    function all_u() {
+        $resource = pg_query($this->conn, "SELECT * FROM get_users(null)") or die(pg_last_error());
+        return $this->all_rows($resource);
+    }
+    
+
+
+    function check_auth($login, $password) {
+        $resource = pg_query_params($this->conn, "SELECT * FROM sign_in($1, $2)", array($login, $password));
+        return $this->one_row($resource);
+    }
+
     function all_rows($resource)
     {
         if ($resource === false)
@@ -42,25 +54,15 @@ class DB {
         return $res;
     }
 
-    function all_u() {
-        $resource = pg_query($this->conn, "SELECT * FROM get_users(null)") or die(pg_last_error());
-        return $this->all_rows($resource);
+    function update_profile($profile)
+    {
+        return pg_query_params($this->conn, "SELECT * FROM update_user($1, $2, $3, $4, $5, $6)",  $profile);/*array($id, $login, $password, $name, $email, $role_id)*/
     }
-    
+
     function one_u($id  = NULL) {
         $resource = pg_query_params($this->conn, "SELECT * FROM get_users($1)",
             array($id)) or die(pg_last_error());
         return $this->one_row($resource);
-    }
-
-    function check_auth($login, $password) {
-        $resource = pg_query_params($this->conn, "SELECT * FROM sign_in($1, $2)", array($login, $password));
-        return $this->one_row($resource);
-    }
-
-    function update_profile($profile)
-    {
-        return pg_query_params($this->conn, "SELECT * FROM update_user($1, $2, $3, $4, $5, $6)",  $profile);/*array($id, $login, $password, $name, $email, $role_id)*/
     }
 
     function create_profile($new_profile)

@@ -97,6 +97,11 @@ class User {
         return $res;
     }
 
+    function has_rights($rights)
+    {
+        return ($this->profile['rights'][$rights] == 't') ? true : false;
+    }
+
   /*  function is_admin() {
         return $this->profile['admin'] == 't';
     }
@@ -105,10 +110,7 @@ class User {
         return $this->profile;
     }
 
-    function has_rights($rights)
-    {
-        return ($this->profile['rights'][$rights] == 't') ? true : false;
-    }
+
 }
 $user = new User();
 

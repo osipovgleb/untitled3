@@ -14,7 +14,7 @@ class Session
     static $session_started = false;
     static $uid = "";
     static $auth = false;
-        
+
     static public function start_session()
     {
         Session::$session_started = true;
